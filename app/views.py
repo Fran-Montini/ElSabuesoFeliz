@@ -34,7 +34,7 @@ def razaperro(request):
 
 def loginview(request: HttpRequest):
     if request.method == "GET" and request.session.get("user"):
-        return redirect('./login.html')
+        return redirect('veterinaria/')
     if request.method == 'POST':
         username = request.POST['username']
         password = request.POST['password']
@@ -46,10 +46,29 @@ def loginview(request: HttpRequest):
             
             request.session["user"] = username
             
-            return redirect('./Veterinaria_list.html')  
+            print("dsdsd")
+            return redirect('veterinaria/')  
         else:
             messages.success(request,("Las credenciales no coinciden"))
             return redirect('./login.html')
     else:
         return render(request, './login.html', )
 
+#class LoginView(View):
+    template_name = 'login.html'
+
+    def get(self, request):
+        return render(request, self.template_name)
+
+    def post(self, request):
+        username = request.POST['username']
+        password = request.POST['password']
+
+        user = authenticate(request, username=username, password=password)
+        print(user)
+
+        if user is not None:
+            login(request, user)
+            return render(request, self.template_name, ("./Veterinaria_list.html").format(user))
+        else:
+            return render(request, self.template_name, {'error_message': 'Credenciales inválidas'})

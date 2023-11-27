@@ -11,5 +11,4 @@ urlpatterns = [
     path('registerperros/', login_perro, name='registrarperrro'),
     path('logEmpl/', login_empleado, name="loginEmpleado")
 
-
 ]

@@ -10,7 +10,7 @@
     <div class="login-box">
       <img src="{% static 'IMG/Logo.png' %}" class="avatar" alt="Avatar Image">
       <h1>El Sabuezo Feliz</h1>
-      <form method="post" action="{% url 'login' %}">
+      <form method="post">
         {% csrf_token %}
         <!-- USERNAME INPUT -->
         <label for="username" >Username</label>

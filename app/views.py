@@ -2,9 +2,11 @@ from .models import *
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from django.views.generic import View
-from .models import *
+from app.models import *
 from django.contrib.auth import *
 from django.db.utils import *
+from django.http import HttpRequest
+from django.contrib import  messages
 
 def home(request):
     return render(request, "./login.html")
@@ -30,22 +32,24 @@ def login_perro(request):
 def razaperro(request):
     return render(request, 'razaperro_template.html')
 
-
-class LoginView(View):
-    template_name = 'login.html'
-
-    def get(self, request):
-        return render(request, self.template_name)
-
-    def post(self, request):
+def loginview(request: HttpRequest):
+    if request.method == "GET" and request.session.get("user"):
+        return redirect('./login.html')
+    if request.method == 'POST':
         username = request.POST['username']
         password = request.POST['password']
 
         user = authenticate(request, username=username, password=password)
-        print(user)
-
         if user is not None:
             login(request, user)
-            return render(request, "Veterinaria_list.html", {'error_message': 'Credenciales inválidas'})
+            
+            
+            request.session["user"] = username
+            
+            return redirect('./Veterinaria_list.html')  
         else:
-            return render(request, self.template_name, {'error_message': 'Credenciales inválidas'})
+            messages.success(request,("Las credenciales no coinciden"))
+            return redirect('./login.html')
+    else:
+        return render(request, './login.html', )
+

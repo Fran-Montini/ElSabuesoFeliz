@@ -8,6 +8,15 @@
   </head>
   <body>
     <div class="login-box">
+      {% if messages %}
+                {% for message in messages %}
+                    <div class="alert alert-warning alert-dismissible fade show" role="alert" style="margin-left:500px;margin-right:500px;margin-top:20px">{{ message }}
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                {% endfor %}
+      {% endif %}
       <img src="{% static 'IMG/Logo.png' %}" class="avatar" alt="Avatar Image">
       <h1>El Sabuezo Feliz</h1>
       <form method="post">
@@ -18,7 +27,7 @@
         <!-- PASSWORD INPUT -->
         <label for="password" >Password</label>
         <input type="password" placeholder="Enter Password" name="password" >
-        <input type="submit" value="Log In">
+        <button>Log In</button>
       </form>
       <p>Ingresando en <code>/admin</code> prodremos registrar empleados nuevos</p>
     </div>

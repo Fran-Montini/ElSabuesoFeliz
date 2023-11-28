@@ -4,6 +4,7 @@
   <head>
     <meta charset="utf-8">
     <title>Login</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm">
     <link rel="stylesheet" href="{% static 'CSS/login.css' %}">
   </head>
   <body>
@@ -23,13 +24,12 @@
         {% csrf_token %}
         <!-- USERNAME INPUT -->
         <label for="username" >Username</label>
-        <input type="text" placeholder="Enter Username" name="username">
+        <input type="text" name="username">
         <!-- PASSWORD INPUT -->
         <label for="password" >Password</label>
-        <input type="password" placeholder="Enter Password" name="password" >
-        <button>Log In</button>
+        <input type="password" name="password" >
+        <button type="submit" class="boton-bonito">Log In</button>
       </form>
-      <p>Ingresando en <code>/admin</code> prodremos registrar empleados nuevos</p>
     </div>
   </body>
 </html>

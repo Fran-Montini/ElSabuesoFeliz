@@ -9,7 +9,7 @@ from django.http import HttpResponse, HttpRequest
 from django.contrib import  messages
 from django.urls import reverse
 def home(request):
-    return redirect("login/")
+    return redirect("/login")
 
 def base(request):
     return render(request,'./Veterinaria_list.html')
@@ -19,15 +19,20 @@ def login_empleado(request):
 
 def login_perro(request):
     if request.method == 'GET':
-        return render(request, './LoginPerros.html')
+        razas = Raza.objects.all()
+        return render(request, './LoginPerros.html', {"razas" : razas})
     
-    else:
+    elif request.method == 'POST':
         perro = request.POST["Nombre"]
-        raza =request.POST["Raza"]
-        peso = request.POST["Peso"]
-        sexo = request.POST["genero"]
-        p = Perro.objects.create(nombre=perro,raza=raza,peso=peso,sexo=sexo)    
-
+        raza = request.POST["Raza"]
+        peso = request.POST["pesoActual"]
+        sexo = request.POST["sexo"]
+        fechaNacimiento = request.POST["fechaNacimiento"]
+        altura = request.POST["alturaActual"]
+        consulta = request.POST["consulta"]
+        razaful = Raza.objects.get(denominacion = raza)
+        p = Perro.objects.create(nombre=perro,raza=razaful,pesoActual=peso,sexo=sexo,fechaNacimiento=fechaNacimiento,alturaActual=altura,consulta=consulta)    
+        return redirect("/veterinaria")
 def razaperro(request):
     return render(request, 'razaperro_template.html')
 
@@ -36,7 +41,6 @@ def loginview(request: HttpRequest):
     if request.method == "GET":
         return render(request, "login.html")
     if request.method == 'POST':
-        
         
         username = request.POST['username']
         password = request.POST['password']
@@ -51,7 +55,5 @@ def loginview(request: HttpRequest):
             return redirect("/veterinaria")  
         else:
             messages.success(request,("Las credenciales no coinciden"))
-            return redirect('./login.html')
-    else:
-        return render(request, './login.html', )
-
+            return redirect('/login')
+    

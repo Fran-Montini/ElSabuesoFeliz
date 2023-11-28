@@ -81,9 +81,10 @@ class Perro(models.Model):
     raza = models.ForeignKey('Raza', on_delete=models.CASCADE)
     pesoActual = models.FloatField()
     alturaActual = models.FloatField()
-    historialMascotas = models.ForeignKey('HistorialMascotas', on_delete=models.CASCADE)
-    consulta = models.TextField()  
-    vacuna = models.CharField(("vacuna;"), max_length=100)
+    sexo = models.CharField(max_length=255)
+    historialMascotas = models.ForeignKey('HistorialMascotas', on_delete=models.CASCADE ,null=True)
+    consulta = models.TextField(null=True)  
+    vacuna = models.CharField(("vacuna;"), max_length=100,null=True)
 
     def generarNumHistoriaClinica(self):
         # Implementar lógica para generar el número de historia clínica
@@ -96,7 +97,8 @@ class Perro(models.Model):
     def identificarVacunacion(self):
         # Implementar lógica para identificar la vacunación del perro
         pass
-
+    def __str__(self) -> str:
+        return self.nombre
 class HistorialMascotas(models.Model):
     estadoPerro = models.CharField(max_length=255)
     rolPersona = models.CharField(max_length=255)
@@ -124,7 +126,8 @@ class Raza(models.Model):
     alturaMediaMachos = models.FloatField()
     alturaMediaHembras = models.FloatField()
     cuidadosEspeciales = models.CharField(("cuidadosEspeciales"), max_length=180)
-
+    def __str__(self) -> str:
+        return self.denominacion
 
 class Consulta(models.Model):
     numeroOrden = models.IntegerField()

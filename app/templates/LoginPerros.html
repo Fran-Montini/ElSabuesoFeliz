@@ -58,15 +58,13 @@
             </div>
 
             <div class="form-group">
-                <label for="sucu">Sucursal:</label>
-                <div class="form-check">
-                    <input type="radio" class="form-check-input" name="Sucursal" id="sucu1" required>
-                    <label class="form-check-label" for="sucu1">Juan b justo 777</label>
-                </div>
-                <div class="form-check">
-                    <input type="radio" class="form-check-input" name="Sucursal" id="sucu2" required>
-                    <label class="form-check-label" for="sucu2">Humberto 1 599</label>
-                </div>
+                <label for="raza">Sucursal:</label>
+                <select class="form-control" id="Sucursal" name="Sucursal" placeholder="Elija la sucursal" required>
+                    <option value="" disabled selected>-</option>
+                    {% for sucursal in sucursal %}
+                        <option value="{{ sucursal.direccion }}">{{ sucursal.direccion }}</option>
+                    {% endfor %}
+                </select>
             </div>
 
             <div class="form-group">

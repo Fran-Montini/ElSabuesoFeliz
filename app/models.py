@@ -34,6 +34,8 @@ class Sucursal(models.Model):
 
     def agregarConsulta(self, consulta):
         self.consultas.append(consulta)
+    def __str__(self) -> str:
+        return self.direccion
 
 
 class Usuario(AbstractBaseUser, PermissionsMixin):

@@ -21,6 +21,9 @@ def login_perro(request):
     if request.method == 'GET':
         razas = Raza.objects.all()
         return render(request, './LoginPerros.html', {"razas" : razas})
+        sucursal = Sucursal.objects.all()
+        return render(request, './LoginPerros.html', {"direccion" : sucursal})
+    
     
     elif request.method == 'POST':
         perro = request.POST["Nombre"]
@@ -30,9 +33,10 @@ def login_perro(request):
         fechaNacimiento = request.POST["fechaNacimiento"]
         altura = request.POST["alturaActual"]
         consulta = request.POST["consulta"]
-        sucursal = Sucursal.objects.get(direccion = sucursal)
+        sucursal = request.POST ["Sucursal"]
+        sucursalful = sucursal.objects.get(direccion = sucursal)
         razaful = Raza.objects.get(denominacion = raza)
-        p = Perro.objects.create(nombre=perro,raza=razaful,pesoActual=peso,sexo=sexo,fechaNacimiento=fechaNacimiento,alturaActual=altura,consulta=consulta)    
+        p = Perro.objects.create(nombre=perro,sucursal=sucursalful,raza=razaful,pesoActual=peso,sexo=sexo,fechaNacimiento=fechaNacimiento,alturaActual=altura,consulta=consulta)    
         return redirect("/veterinaria")
 def razaperro(request):
 

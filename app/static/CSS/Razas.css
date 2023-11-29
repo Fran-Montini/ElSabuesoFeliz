@@ -1,0 +1,19 @@
+
+.card {
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    transition: transform 0.3s;
+}
+
+.card:hover {
+    transform: scale(1.05);
+}
+
+.link {
+    text-decoration: none;
+    color: #333;
+}
+
+.card-text {
+    font-size: 1.2em;
+}

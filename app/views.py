@@ -34,7 +34,9 @@ def login_perro(request):
         p = Perro.objects.create(nombre=perro,raza=razaful,pesoActual=peso,sexo=sexo,fechaNacimiento=fechaNacimiento,alturaActual=altura,consulta=consulta)    
         return redirect("/veterinaria")
 def razaperro(request):
-    return render(request, 'razaperro_template.html')
+
+    razas = Raza.objects.all()
+    return render(request, 'Razas.html', {'razas': razas})
 
 def loginview(request: HttpRequest):
     

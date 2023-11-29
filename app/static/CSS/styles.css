@@ -96,14 +96,6 @@ body{
 }
 
 
-
-/*Nav Mobile*/
-
-.header a{
-    text-decoration: none;  
-    /*borramos el que teniamos en .header .nav-links a*/ 
-}
-
 .header .overlay {
     height: 100%;
     width: 0;
@@ -131,12 +123,10 @@ body{
     transition: all 0.3s ease 0s;
     font-weight: 700;
     color: #eceff1;
+
 }
 
-.header .overlay a:hover, 
-.header .overlay a:focus{
-    color: blue
-}
+
 
 .header .overlay .close{
     position: absolute;
@@ -232,4 +222,7 @@ body{
     }
 }
 
+a{
+    text-decoration: none;
+}
 

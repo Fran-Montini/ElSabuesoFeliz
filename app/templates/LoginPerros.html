@@ -58,7 +58,7 @@
                 <label for="Sucursal">Sucursal:</label>
                 <select class="form-control" id="Sucursal" name="Sucursal" placeholder="Elija la sucursal" required>
                     <option value="" disabled selected>-</option>
-                    {% for sucursal in sucursales %}
+                    {% for sucursales in sucursal %}
                         <option value="{{ sucursal.direccion }}">{{ sucursal.direccion }}</option>
                     {% endfor %}
                 </select>

@@ -23,46 +23,48 @@ def login_empleado(request):
         return render(request, './LoginEmpleado.html', {"tipo_documentos" : tipo_documento, 'sucursales' : sucursal})
     
     if request.method == 'POST':
-        username = request.POST['username']
-        password = request.POST['password']
-        first_name = request.POST['first_name']
-        last_name = request.POST['last_name']
-        email = request.POST['email']
-        tipo_documento_id = request.POST['tipodocumento']
-        documento = request.POST['documento']
+        username = request.POST['username-empleado']
+        pass_empleado = request.POST['pass-empleado']
+        nombre = request.POST['nombre-empleado']
+        apellido = request.POST['apellido-empleado']
+        correo = request.POST['email-empleado']
+        nro_documento = request.POST['nro-documento-empleado']
         sexo = request.POST['sexo']
-        sucursal = request.POST['sucursal']
         fecha_nacimiento = request.POST['fecha_nacimiento']
         fecha_ingreso = request.POST['fecha_ingreso']
+    if 'sucursal' in request.POST:
+        sucursal = request.POST['sucursal']
+
+    if 'tipodocumento' in request.POST:
+        tipo_documento_id = request.POST['tipodocumento']
+    else:
+        tipo_documento_id = None  # O cualquier valor predeterminado que sea apropiado en tu caso
 
 
         
         if Usuario.objects.filter(username=username).exists():
             error_message = "El nombre de usuario ya está en uso."
         
-        elif Usuario.objects.filter(email=email).exists():
+        elif Usuario.objects.filter(email=correo).exists():
             error_message = "El correo electrónico ya está en uso."
-
-        elif Usuario.objects.filter(password=password).exists():
-            error_message = "La contasenia ya esta en uso"
              
         else:
-            user = Usuario.objects.create_user(
-                username = username,
-                password = password,
-                first_name = first_name,
-                last_name = last_name,
-                email = email,
-                is_active = 'True',
-                tipodocumento = Tipodocumento.objects.get(id = tipo_documento_id), 
-                documento = documento,
-                sexo = sexo,
-                sucursal = Sucursal.objects.get(id = sucursal),
-                fecha_nacimiento = fecha_nacimiento,
-                fecha_ingreso = fecha_ingreso
+        
+                hashed_password = make_password(pass_empleado)
+                user = Usuario.objects.create_user(
+                    username=username,
+                    password=hashed_password,  
+                    nombre=nombre,  
+                    apellido=apellido,
+                     email=correo,
+                    is_active = 'True',
+                    tipodocumento = Tipodocumento.objects.get(id = tipo_documento_id), 
+                   numero_documento=nro_documento,                    sexo = sexo,
+                    sucursal = Sucursal.objects.get(id = sucursal),
+                    fecha_nacimiento = fecha_nacimiento,
+                    fecha_ingreso = fecha_ingreso
             )
-            user.save()
-            
+                user.save()
             
         return redirect('/veterinaria')
 

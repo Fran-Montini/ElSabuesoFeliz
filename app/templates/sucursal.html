@@ -30,7 +30,7 @@
                 <label for="ciudad">Ciudad de Origen</label>
                 <select class="form-control" id="ciudad" name="ciudad" placeholder="Seleccióne su Ciudad" Required>
                     <option value="" autofocus hidden>-</option>
-                    {% for ciudad in ciudades %}
+                    {% for ciudades in ciudad %}
                         <option value="{{ ciudad.nombre }}">{{ ciudad.getFullName}}</option>
                     {% endfor %}
                 </select>

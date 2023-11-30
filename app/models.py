@@ -31,18 +31,18 @@ class Pais(models.Model):
     def __str__(self) -> str:
         return self.nombre
 
-class Ciudad(models.Model):
-    nombre = models.CharField(max_length=255)
-    pais = models.ForeignKey(Pais, on_delete=models.CASCADE)
-    def __str__(self) -> str:
-        return self.nombre
+# class Ciudad(models.Model):
+#     nombre = models.CharField(max_length=255)
+#     pais = models.ForeignKey(Pais, on_delete=models.CASCADE)
+#     def __str__(self) -> str:
+#         return self.nombre
     
-    def getFullName(self):
-        return f'{self.pais} - {self.nombre}'
+#     def getFullName(self):
+#         return f'{self.pais} - {self.nombre}'
         
 class Sucursal(models.Model):
     direccion = models.CharField(max_length=255)
-    ciudad = models.ForeignKey(Ciudad, on_delete=models.CASCADE, default=1)
+    # ciudad = models.ForeignKey(Ciudad, on_delete=models.CASCADE, default=1)
 
     def agregarEmpleado(self, empleado):
         self.empleados.append(empleado)

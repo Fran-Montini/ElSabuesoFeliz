@@ -8,6 +8,7 @@ from django.contrib import  messages
 from app.models import *
 from django.contrib.auth.models import User
 
+
 def home(request):
     return redirect("/login")
 
@@ -67,8 +68,8 @@ def login_empleado(request):
 def sucursales(request):
     if request.method == 'GET':
         sucursales = Sucursal.objects.all()
-        ciudades = Ciudad.objects.all()
-        return render(request, 'sucursal.html', {'sucursales': sucursales, 'ciudades' : ciudades})
+        #ciudades = Ciudad.objects.all(),'ciudades' : ciudades}
+        return render(request, 'sucursal.html', {'sucursales': sucursales})
 
 def consulta_menu(request):
     return render(request,"./consulta_menu.html")
@@ -104,7 +105,7 @@ def detalles_raza(request, raza_id):
     try:
         raza = Raza.objects.get(pk=raza_id)
     except Raza.DoesNotExist:
-        raise Http404("Raza inexistente")
+        raise ("Raza inexistente")
 
     return render(request, 'detalles_raza.html', {'raza': raza})
 

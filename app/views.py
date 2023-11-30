@@ -64,10 +64,11 @@ def login_empleado(request):
 
     return render(request, './LoginEmpleado.html')
 
-
-def sucursal(request):
-    sucursal = Sucursal.objects.all()
-    return render(request,"./sucursal.html", {'sucursal' : sucursal})
+def sucursales(request):
+    if request.method == 'GET':
+        sucursales = Sucursal.objects.all()
+        ciudades = Ciudad.objects.all()
+        return render(request, 'sucursal.html', {'sucursales': sucursales, 'ciudades' : ciudades})
 
 def consulta_menu(request):
     return render(request,"./consulta_menu.html")
@@ -76,9 +77,8 @@ def consulta_menu(request):
 def login_perro(request):
     if request.method == 'GET':
         razas = Raza.objects.all()
-        return render(request, './LoginPerros.html', {"razas" : razas})
         sucursal = Sucursal.objects.all()
-        return render(request, './LoginPerros.html', {"direccion" : sucursal})
+        return render(request, './LoginPerros.html', {"razas" : razas, 'sucursales' : sucursal})
     
     
     elif request.method == 'POST':
@@ -98,6 +98,15 @@ def razaperro(request):
 
     razas = Raza.objects.all()
     return render(request, 'Razas.html', {'razas': razas})
+
+def detalles_raza(request, raza_id):
+    
+    try:
+        raza = Raza.objects.get(pk=raza_id)
+    except Raza.DoesNotExist:
+        raise Http404("Raza inexistente")
+
+    return render(request, 'detalles_raza.html', {'raza': raza})
 
 
 def loginview(request: HttpRequest):

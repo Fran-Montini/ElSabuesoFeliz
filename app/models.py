@@ -26,8 +26,23 @@ class CustomUserManager(BaseUserManager):
 
         return self.create_user(username, password, **extra_fields)
 
+class Pais(models.Model):
+    nombre = models.CharField(max_length=255)
+    def __str__(self) -> str:
+        return self.nombre
+
+class Ciudad(models.Model):
+    nombre = models.CharField(max_length=255)
+    pais = models.ForeignKey(Pais, on_delete=models.CASCADE)
+    def __str__(self) -> str:
+        return self.nombre
+    
+    def getFullName(self):
+        return f'{self.pais} - {self.nombre}'
+        
 class Sucursal(models.Model):
     direccion = models.CharField(max_length=255)
+    ciudad = models.ForeignKey(Ciudad, on_delete=models.CASCADE, default=1)
 
     def agregarEmpleado(self, empleado):
         self.empleados.append(empleado)
@@ -36,7 +51,21 @@ class Sucursal(models.Model):
         self.consultas.append(consulta)
     def __str__(self) -> str:
         return self.direccion
+    
 
+class Tipodocumento(models.Model):
+    nombre = models.CharField(max_length=255)
+    descripcion = models.TextField()
+
+    def __str__(self):
+        return self.nombre
+
+
+class Persona(models.Model):
+    nombrePersona = models.CharField(max_length=255)
+    tipodocumento = models.ForeignKey(Tipodocumento, on_delete=models.CASCADE, null=True)
+    numDocPersona = models.IntegerField("Numero de Documento", null=True)
+    descripcion = models.CharField(("Descripcion:"), max_length=180)
 
 class Usuario(AbstractBaseUser, PermissionsMixin):
     username = models.CharField(max_length=30, unique=True)
@@ -47,7 +76,6 @@ class Usuario(AbstractBaseUser, PermissionsMixin):
     fechaIngreso = models.DateField(('FechaDeIngreso'),null=True)
     sucursal = models.ForeignKey(('Sucursal'),Sucursal, null=True)
     empleado = models.BooleanField(('Empleado'),default=True)
-    documento = models.ForeignKey('Persona', on_delete=models.CASCADE, null=True)
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
 
@@ -71,11 +99,6 @@ class AsignacionEmpleados(models.Model):
     def verificarEstadoEmpleado(self):
         # Implementar lógica para verificar el estado del empleado
         pass
-
-    def verificarRolEmpleado(self):
-        # Implementar lógica para verificar el rol del empleado
-        pass
-
  
 class Perro(models.Model):
     numeroHistoriaClinica = models.BigAutoField(primary_key=True)
@@ -114,19 +137,6 @@ class HistorialMascotas(models.Model):
         # Implementar lógica para verificar el rol de la persona
         pass
 
-class Tipodocumento(models.Model):
-    nombre = models.CharField(max_length=255)
-    descripcion = models.TextField()
-
-    def __str__(self):
-        return self.nombre
-
-
-class Persona(models.Model):
-    nombrePersona = models.CharField(max_length=255)
-    tipodocumento = models.ForeignKey(Tipodocumento, on_delete=models.CASCADE, null=True)
-    numDocPersona = models.IntegerField("Numero de Documento", null=True)
-    descripcion = models.CharField(("Descripcion:"), max_length=180)
 
 
 class Raza(models.Model):

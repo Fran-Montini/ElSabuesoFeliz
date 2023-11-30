@@ -27,11 +27,11 @@
             {% csrf_token %}
 
             <div class="form-group">
-                <label for="raza">Dirección:</label>
-                <select class="form-control" id="raza" name="Raza" placeholder="Elija la raza del perro" required>
-                    <option value="" disabled selected>-</option>
-                    {% for sucursal in sucursal %}
-                        <option value="{{ raza.denominacion }}">{{ sucursal.direccion }}</option>
+                <label for="ciudad">Ciudad de Origen</label>
+                <select class="form-control" id="ciudad" name="ciudad" placeholder="Seleccióne su Ciudad" Required>
+                    <option value="" autofocus hidden>-</option>
+                    {% for ciudad in ciudades %}
+                        <option value="{{ ciudad.nombre }}">{{ ciudad.getFullName}}</option>
                     {% endfor %}
                 </select>
             </div>

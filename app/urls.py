@@ -11,5 +11,6 @@ urlpatterns = [
     path('registerperros/', login_perro, name='registrarperrro'),
     path('logEmpl/', login_empleado, name="loginEmpleado"),
     path('consulta/', consulta_menu, name="consultas"),
-    path('sucursales/', sucursal, name="sucursales"),
+    path('sucursales/', sucursales, name="sucursales"),
+    path('detalles_raza/<int:raza_id>/', detalles_raza, name='detalles_raza'),
 ]

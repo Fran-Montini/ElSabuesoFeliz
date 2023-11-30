@@ -7,6 +7,7 @@ from django.http import HttpResponse, HttpRequest
 from django.contrib import  messages
 from app.models import *
 from django.contrib.auth.models import User
+from django.contrib.auth.hashers import make_password
 
 
 def home(request):
@@ -69,8 +70,60 @@ def login_empleado(request):
             
         return redirect('/veterinaria')
 
-    return render(request, './LoginEmpleado.html')
+#     return render(request, './LoginEmpleado.html')
+# def login_empleado(request):
+    
+#     if request.method == 'GET':
+#         tipo_documento = Tipodocumento.objects.all()
+#         sucursal = Sucursal.objects.all()
+#         return render(request, './LoginEmpleado.html', {"tipo_documentos": tipo_documento, 'sucursales': sucursal})
+    
+#     if request.method == 'POST':
+#         username = request.POST.get('username-empleado', '')
+#         pass_empleado = request.POST.get('pass-empleado', '')
+#         nombre = request.POST.get('nombre-empleado', '')
+#         apellido = request.POST.get('apellido-empleado', '')
+#         correo = request.POST.get('email-empleado', '')
+#         nro_documento = request.POST.get('nro-documento-empleado', '')
+#         sexo = request.POST.get('sexo', '')
+#         fecha_nacimiento = request.POST.get('fecha_nacimiento', '')
+#         fecha_ingreso = request.POST.get('fecha_ingreso', '')
 
+#         sucursal_id = request.POST.get('sucursal', '')
+#         tipo_documento_id = request.POST.get('tipodocumento', '')
+
+#         # Verifica si los IDs son cadenas vacías y establece valores predeterminados si es necesario
+#         sucursal_id = sucursal_id if sucursal_id else None
+#         tipo_documento_id = tipo_documento_id if tipo_documento_id else None
+
+#         if Usuario.objects.filter(username=username).exists():
+#             error_message = "El nombre de usuario ya está en uso."
+#         elif Usuario.objects.filter(email=correo).exists():
+#             error_message = "El correo electrónico ya está en uso."
+#         else:
+#             hashed_password = make_password(pass_empleado)
+#             user = Usuario.objects.create_user(
+#                 username=username,
+#                 password=hashed_password,
+#             )
+
+#             # Ahora establece los campos adicionales
+#             user.nombre = nombre
+#             user.apellido = apellido
+#             user.email = correo
+#             user.is_active = True
+#             user.tipodocumento_id = tipo_documento_id
+#             user.numero_documento = nro_documento
+#             user.sexo = sexo
+#             user.sucursal_id = sucursal_id
+#             user.fecha_nacimiento = fecha_nacimiento
+#             user.fecha_ingreso = fecha_ingreso
+
+#             user.save()
+            
+#             return redirect('/veterinaria')
+
+#     return render(request, './LoginEmpleado.html')
 def sucursales(request):
     if request.method == 'GET':
         sucursales = Sucursal.objects.all()
@@ -98,6 +151,7 @@ def login_perro(request):
         consulta = request.POST["consulta"]
         sucursal = request.POST ["Sucursal"]
         razaful = Raza.objects.get(denominacion = raza)
+        sucursalful = sucursal.objects.get(direccion = sucursal)
         p = Perro.objects.create(nombre=perro,sucursal=sucursalful,raza=razaful,pesoActual=peso,sexo=sexo,fechaNacimiento=fechaNacimiento,alturaActual=altura,consulta=consulta)    
         return redirect("/veterinaria")
 def razaperro(request):

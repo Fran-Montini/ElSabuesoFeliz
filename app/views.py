@@ -32,6 +32,7 @@ def login_empleado(request):
         sexo = request.POST['sexo']
         fecha_nacimiento = request.POST['fecha_nacimiento']
         fecha_ingreso = request.POST['fecha_ingreso']
+
     if 'sucursal' in request.POST:
         sucursal = request.POST['sucursal']
 
@@ -56,10 +57,10 @@ def login_empleado(request):
                     password=hashed_password,  
                     nombre=nombre,  
                     apellido=apellido,
-                     email=correo,
+                    email=correo,
                     is_active = 'True',
                     tipodocumento = Tipodocumento.objects.get(id = tipo_documento_id), 
-                   numero_documento=nro_documento,                    sexo = sexo,
+                    numero_documento=nro_documento,                    sexo = sexo,
                     sucursal = Sucursal.objects.get(id = sucursal),
                     fecha_nacimiento = fecha_nacimiento,
                     fecha_ingreso = fecha_ingreso
@@ -96,7 +97,6 @@ def login_perro(request):
         altura = request.POST["alturaActual"]
         consulta = request.POST["consulta"]
         sucursal = request.POST ["Sucursal"]
-        sucursalful = sucursal.objects.get(direccion = sucursal)
         razaful = Raza.objects.get(denominacion = raza)
         p = Perro.objects.create(nombre=perro,sucursal=sucursalful,raza=razaful,pesoActual=peso,sexo=sexo,fechaNacimiento=fechaNacimiento,alturaActual=altura,consulta=consulta)    
         return redirect("/veterinaria")

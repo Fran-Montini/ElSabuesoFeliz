@@ -19,6 +19,13 @@
         <div class="logo">
            <a href="{%url 'Veterinarialist'%}" ><img src="{% static 'IMG/Logo.png' %}"  alt="Logo de la marca"></a>
         </div>
+        <div class="loginbtn" href="login.html">
+            <button class="btn btn-danger btn-xl">
+                {% if logged_user %}
+                    {{ logged_user }}
+                {% endif %}
+            </button>
+        </div>
         <nav>
            <ul class="nav-links">
                 <li class="nav-item">

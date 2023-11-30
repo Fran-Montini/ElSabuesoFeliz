@@ -16,15 +16,16 @@ def home(request):
     return redirect("/login")
 
 def base(request):
-    return render(request,'./Veterinaria_list.html')
+    logged_user = getLoggedUser(request)
+    return render(request,'./Veterinaria_list.html',{"logged_user" : logged_user})
 
 def login_empleado(request):
-    
+    logged_user = getLoggedUser(request)
     if request.method == 'GET':
         tipo_documento = Tipodocumento.objects.all()
         sucursales = Sucursal.objects.all()
         print(sucursales)
-        return render(request, './LoginEmpleado.html', {"tipo_documentos" : tipo_documento, 'sucursales' : sucursales})
+        return render(request, './LoginEmpleado.html', {"tipo_documentos" : tipo_documento, 'sucursales' : sucursales,"logged_user" : logged_user})
     
     if request.method == 'POST':
         username = request.POST['username-empleado']
@@ -36,6 +37,8 @@ def login_empleado(request):
         sexo = request.POST['sexo']
         fecha_nacimiento = request.POST['fecha_nacimiento']
         fecha_ingreso = request.POST['fecha_ingreso']
+        print(correo)
+        
 
   
 
@@ -58,19 +61,19 @@ def login_empleado(request):
         error_message = "El correo electrónico ya está en uso."
             
     hashed_password = make_password(pass_empleado)
-    user = Usuario.objects.create_user(
-        username=username,
-        password=hashed_password,  
-        nombre=nombre,  
-        apellido=apellido,
-        email=correo,
+    user = Usuario.objects.create(
+        username = username,
+        password = hashed_password,  
+        nombre = nombre,  
+        apellido = apellido,
+        # email = correo,
         is_active = 'True',
-        tipodocumento = Tipodocumento.objects.get(id = tipo_documento), 
+        tipo_documento = Tipodocumento.objects.get(id = tipo_documento), 
         numero_documento=nro_documento,                    
         sexo = sexo,
         sucursal = Sucursal.objects.get(direccion=sucursal),
-        fecha_nacimiento = fecha_nacimiento,
-        fecha_ingreso = fecha_ingreso
+        fechaNacimiento = fecha_nacimiento,
+        fechaIngreso = fecha_ingreso
     )
     user.save()
                  
@@ -197,3 +200,5 @@ def loginview(request: HttpRequest):
             messages.success(request,("Las credenciales no coinciden"))
             return redirect('/login')
     
+def getLoggedUser(request: HttpRequest):
+    return request.session.get("user")

@@ -70,7 +70,7 @@ class Persona(models.Model):
 class Usuario(AbstractBaseUser, PermissionsMixin):
     username = models.CharField(max_length=30, unique=True)
     email = models.EmailField(('Email'), max_length=254, unique=True)
-    nombres = models.CharField(('Nombre'),max_length=255)
+    nombre = models.CharField(('Nombre'),max_length=255)
     apellido = models.CharField(('Apellido'),max_length=255)
     fechaNacimiento = models.DateField(('FechaNacimiento'),null=True)
     fechaIngreso = models.DateField(('FechaDeIngreso'),null=True)
@@ -78,6 +78,9 @@ class Usuario(AbstractBaseUser, PermissionsMixin):
     empleado = models.BooleanField(('Empleado'),default=True)
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
+    tipo_documento = models.ForeignKey(Tipodocumento,on_delete=models.CASCADE ,null=True)
+    numero_documento = models.CharField(max_length = 30)
+    sexo = models.CharField(max_length=255)
 
     USERNAME_FIELD = "username"
     REQUIRED_FIELDS = ["email", "nombres", "apellido"]
@@ -85,7 +88,7 @@ class Usuario(AbstractBaseUser, PermissionsMixin):
     objects = CustomUserManager()
 
     def __str__(self):
-        return f"{self.username} - {self.nombres} {self.apellido}"
+        return f"{self.username} - {self.nombre} {self.apellido}"
 
 
 

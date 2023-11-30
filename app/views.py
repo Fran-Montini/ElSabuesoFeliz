@@ -8,6 +8,8 @@ from django.contrib import  messages
 from app.models import *
 from django.contrib.auth.models import User
 from django.contrib.auth.hashers import make_password
+from django.shortcuts import render
+from django.http import HttpResponse
 
 
 def home(request):
@@ -34,41 +36,47 @@ def login_empleado(request):
         fecha_nacimiento = request.POST['fecha_nacimiento']
         fecha_ingreso = request.POST['fecha_ingreso']
 
-    if 'sucursal' in request.POST:
-        sucursal = request.POST['sucursal']
+  
 
-    if 'tipodocumento' in request.POST:
-        tipo_documento_id = request.POST['tipodocumento']
+    if 'Sucursal' in request.POST:
+        Sucursal = request.POST['Sucursal']
     else:
-        tipo_documento_id = None  # O cualquier valor predeterminado que sea apropiado en tu caso
+        Sucursal = None
+
+    if 'tipo_documento' in request.POST:
+        tipo_documento = request.POST['tipo_documento']
+    else:
+        tipo_documento = None  # O cualquier valor predeterminado que sea apropiado en tu caso
 
 
-        
-        if Usuario.objects.filter(username=username).exists():
-            error_message = "El nombre de usuario ya está en uso."
-        
-        elif Usuario.objects.filter(email=correo).exists():
-            error_message = "El correo electrónico ya está en uso."
-             
-        else:
-        
-                hashed_password = make_password(pass_empleado)
-                user = Usuario.objects.create_user(
-                    username=username,
-                    password=hashed_password,  
-                    nombre=nombre,  
-                    apellido=apellido,
-                    email=correo,
-                    is_active = 'True',
-                    tipodocumento = Tipodocumento.objects.get(id = tipo_documento_id), 
-                    numero_documento=nro_documento,                    sexo = sexo,
-                    sucursal = Sucursal.objects.get(id = sucursal),
-                    fecha_nacimiento = fecha_nacimiento,
-                    fecha_ingreso = fecha_ingreso
-            )
-                user.save()
+    
+    if Usuario.objects.filter(username=username).exists():
+        error_message = "El nombre de usuario ya está en uso."
+    
+    elif Usuario.objects.filter(email=correo).exists():
+        error_message = "El correo electrónico ya está en uso."
             
-        return redirect('/veterinaria')
+    print('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',tipo_documento)
+    hashed_password = make_password(pass_empleado)
+    user = Usuario.objects.create_user(
+        username=username,
+        password=hashed_password,  
+        nombre=nombre,  
+        apellido=apellido,
+        email=correo,
+        is_active = 'True',
+        tipodocumento = Tipodocumento.objects.get(id = tipo_documento), 
+        numero_documento=nro_documento,                    
+        sexo = sexo,
+        sucursal = Sucursal.objects.get(id=Sucursal),
+        fecha_nacimiento = fecha_nacimiento,
+        fecha_ingreso = fecha_ingreso
+    )
+    user.save()
+                 
+                
+            
+    return redirect('/veterinaria')
 
 #     return render(request, './LoginEmpleado.html')
 # def login_empleado(request):
@@ -139,7 +147,6 @@ def login_perro(request):
         razas = Raza.objects.all()
         sucursal = Sucursal.objects.all()
         return render(request, './LoginPerros.html', {"razas" : razas, 'sucursales' : sucursal})
-    
     
     elif request.method == 'POST':
         perro = request.POST["Nombre"]

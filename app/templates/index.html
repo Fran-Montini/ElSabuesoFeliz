@@ -24,9 +24,21 @@
                 <li><a href="#">Sucursales</a></li>
                 <li><a href="{%url 'Raza'%}">Razas</a></li>
                 <li><a href="{% url 'registrarperrro' %}">Registrar Perro</a></li>
+
+                <li><a href="#">Consulta</a></li>
+
+                {% if user and user.is_staff %}
+                    <li><a href="{% url 'loginEmpleado' %}">Registrar Empleado</a></li>
+                {% endif %}
+
+                {% if request.user.is_authenticated %}
+                    <li><a href="{% url 'loginview' %}">Cerrar Sesion</a></li>
+                {% endif %}
+
+                
            </ul>            
         </nav>
-        <a class="btn" href="{%url 'loginEmpleado'%}"><button>Registrar Empleado</button></a>
+        
 
        <a onclick="openNav()" class="menu" href="#"><button>Menu</button></a>
 

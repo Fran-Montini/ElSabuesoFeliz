@@ -1,21 +1,24 @@
 from .models import *
-from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
-from django.views.generic import View
 from app.models import *
 from django.contrib.auth import *
 from django.db.utils import *
 from django.http import HttpResponse, HttpRequest
 from django.contrib import  messages
-from django.urls import reverse
+from app.models import *
+
 def home(request):
     return redirect("/login")
 
 def base(request):
     return render(request,'./Veterinaria_list.html')
-    
+
 def login_empleado(request):
     return render(request,"./LoginEmpleado.html")
+
+def consulta_menu(request):
+    return render(request,"./consulta_menu.html")
+
 
 def login_perro(request):
     if request.method == 'GET':

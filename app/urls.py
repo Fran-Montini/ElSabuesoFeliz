@@ -9,7 +9,6 @@ urlpatterns = [
     path('veterinaria/', base, name = 'Veterinarialist'),
     path('razas/', razaperro, name='Raza'),   
     path('registerperros/', login_perro, name='registrarperrro'),
-    path('logEmpl/', login_empleado, name="loginEmpleado")
-
-
+    path('logEmpl/', login_empleado, name="loginEmpleado"),
+    path('consulta/', consulta_menu, name="consultas"),
 ]

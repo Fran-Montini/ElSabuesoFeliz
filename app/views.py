@@ -16,12 +16,11 @@ def base(request):
     return render(request,'./Veterinaria_list.html')
 
 def login_empleado(request):
-    tipo_documento_id = Tipodocumento.objects.all()
-    sucursal = Sucursal.objects.all()
+    
     if request.method == 'GET':
-        tipo_documento_id = Tipodocumento.objects.all()
+        tipo_documento = Tipodocumento.objects.all()
         sucursal = Sucursal.objects.all()
-        return render(request, './LoginEmpleado.html', {"tipo_documento" : tipo_documento_id, 'sucursales' : sucursal})
+        return render(request, './LoginEmpleado.html', {"tipo_documentos" : tipo_documento, 'sucursales' : sucursal})
     
     if request.method == 'POST':
         username = request.POST['username']

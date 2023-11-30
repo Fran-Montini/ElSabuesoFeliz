@@ -32,12 +32,11 @@
             </div>
        
             <div class="form-group">
-                <label for="raza">Tipo Documento:</label>
+                <label for="tipo_documento">Tipo Documento:</label>
                 <select class="form-control" id="Sucursal" name="Sucursal" placeholder="Elija la sucursal" required>
                     <option value="" disabled selected>-</option>
-                    
                     {% for tipo_documento in tipo_documentos %}
-                    <option value="{{ tipo_documento.tipo_documento_id }}">{{ tipo_documento.tipo_documento_id }}</option>
+                    <option value="{{ tipo_documento.nombre}}">{{ tipo_documento.nombre}}</option>
                     {% endfor %}
                     
                 </select>

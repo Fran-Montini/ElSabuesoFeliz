@@ -36,8 +36,8 @@
                 <select class="form-control" id="Sucursal" name="Sucursal" placeholder="Elija la sucursal" required>
                     <option value="" disabled selected>-</option>
                     
-                    {% for tipoDocumento in tipoDocumentos %}
-                    <option value="{{ tipoDocumento.nombre }}">{{ tipoDocumento.nombre }}</option>
+                    {% for tipo_documento in tipo_documentos %}
+                    <option value="{{ tipo_documento.tipo_documento_id }}">{{ tipo_documento.tipo_documento_id }}</option>
                     {% endfor %}
                     
                 </select>
@@ -59,10 +59,10 @@
             </div>
   
             <div class="form-group">
-                <label for="raza">Sucursal:</label>
+                <label for="Sucursal">Sucursal:</label>
                 <select class="form-control" id="Sucursal" name="Sucursal" placeholder="Elija la sucursal" required>
                     <option value="" disabled selected>-</option>
-                    {% for sucursal in sucursal %}
+                    {% for sucursal in sucursales %}
                         <option value="{{ sucursal.direccion }}">{{ sucursal.direccion }}</option>
                     {% endfor %}
                 </select>

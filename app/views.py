@@ -18,6 +18,10 @@ def base(request):
 def login_empleado(request):
     tipo_documento_id = Tipodocumento.objects.all()
     sucursal = Sucursal.objects.all()
+    if request.method == 'GET':
+        tipo_documento_id = Tipodocumento.objects.all()
+        sucursal = Sucursal.objects.all()
+        return render(request, './LoginEmpleado.html', {"tipo_documento" : tipo_documento_id, 'sucursales' : sucursal})
     
     if request.method == 'POST':
         username = request.POST['username']

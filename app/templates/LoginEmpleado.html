@@ -30,27 +30,32 @@
                 <input type="password" id="ContraseñaEmpleado" class="form-control" name="pass-empleado" pattern="[A-Za-z0-9\s,.-]+" required>
                 </div>
             </div>
-
-            <div class="form-group">
-                <label for="email">Email del Empleado</label>
-                <input type="email" class="form-control" name="mail" id="Email">
-            </div>
-
+            
             <div class="form-group">
                 <label for="nombre">Nombre del Empleado:</label>
                 <input type="text" class="form-control" name="Nombre" id="nombre" required>
             </div>
-
+            
             <div class="form-group">
                 <label for="apellido">Apellido del Empleado:</label>
                 <input type="text" class="form-control" name="Apellido" id="apellido" required>
             </div>
 
-            <div class="row form-group">
-                
-                <label for="lbl-tipo-documento">Tipo Documento:</label> 
-                <input type="text" id="tipo-documento-empleado" class="form-control" name="tipo-documento-empleado" required>
-                </div>
+            <div class="form-group">
+                <label for="email">Email del Empleado</label>
+                <input type="email" class="form-control" name="mail" id="Email">
+            </div>
+            
+            <div class="form-group">
+                <label for="raza">Tipo Documento:</label>
+                <select class="form-control" id="Sucursal" name="Sucursal" placeholder="Elija la sucursal" required>
+                    <option value="" disabled selected>-</option>
+                    
+                    {% for tipoDocumento in tipoDocumentos %}
+                    <option value="{{ tipoDocumento.nombre }}">{{ tipoDocumento.nombre }}</option>
+                    {% endfor %}
+                    
+                </select>
             </div>
         
             <div class="row form-group">
@@ -72,9 +77,9 @@
                 <label for="raza">Sucursal:</label>
                 <select class="form-control" id="Sucursal" name="Sucursal" placeholder="Elija la sucursal" required>
                     <option value="" disabled selected>-</option>
-                    
+                    {% for sucursal in sucursal %}
                         <option value="{{ sucursal.direccion }}">{{ sucursal.direccion }}</option>
-                    
+                    {% endfor %}
                 </select>
             </div>
 

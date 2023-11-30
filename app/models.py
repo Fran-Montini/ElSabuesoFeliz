@@ -47,6 +47,7 @@ class Usuario(AbstractBaseUser, PermissionsMixin):
     fechaIngreso = models.DateField(('FechaDeIngreso'),null=True)
     sucursal = models.ForeignKey(('Sucursal'),Sucursal, null=True)
     empleado = models.BooleanField(('Empleado'),default=True)
+    documento = models.ForeignKey('Persona', on_delete=models.CASCADE, null=True)
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
 
@@ -113,9 +114,18 @@ class HistorialMascotas(models.Model):
         # Implementar lógica para verificar el rol de la persona
         pass
 
+class Tipodocumento(models.Model):
+    nombre = models.CharField(max_length=255)
+    descripcion = models.TextField()
+
+    def __str__(self):
+        return self.nombre
+
+
 class Persona(models.Model):
     nombrePersona = models.CharField(max_length=255)
-    numDocPersona = models.IntegerField()
+    tipodocumento = models.ForeignKey(Tipodocumento, on_delete=models.CASCADE, null=True)
+    numDocPersona = models.IntegerField("Numero de Documento", null=True)
     descripcion = models.CharField(("Descripcion:"), max_length=180)
 
 

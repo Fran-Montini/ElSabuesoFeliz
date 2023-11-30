@@ -6,6 +6,7 @@ from django.db.utils import *
 from django.http import HttpResponse, HttpRequest
 from django.contrib import  messages
 from app.models import *
+from django.contrib.auth.models import User
 
 def home(request):
     return redirect("/login")
@@ -14,7 +15,59 @@ def base(request):
     return render(request,'./Veterinaria_list.html')
 
 def login_empleado(request):
-    return render(request,"./LoginEmpleado.html")
+    tipo_documento_id = Tipodocumento.objects.all()
+    sucursal = Sucursal.objects.all()
+    
+    if request.method == 'POST':
+        username = request.POST['username']
+        password = request.POST['password']
+        first_name = request.POST['first_name']
+        last_name = request.POST['last_name']
+        email = request.POST['email']
+        tipo_documento_id = request.POST['tipodocumento']
+        documento = request.POST['documento']
+        sexo = request.POST['sexo']
+        sucursal = request.POST['sucursal']
+        fecha_nacimiento = request.POST['fecha_nacimiento']
+        fecha_ingreso = request.POST['fecha_ingreso']
+
+
+        
+        if Usuario.objects.filter(username=username).exists():
+            error_message = "El nombre de usuario ya está en uso."
+        
+        elif Usuario.objects.filter(email=email).exists():
+            error_message = "El correo electrónico ya está en uso."
+
+        elif Usuario.objects.filter(password=password).exists():
+            error_message = "La contasenia ya esta en uso"
+             
+        else:
+            user = Usuario.objects.create_user(
+                username = username,
+                password = password,
+                first_name = first_name,
+                last_name = last_name,
+                email = email,
+                is_active = 'True',
+                tipodocumento = Tipodocumento.objects.get(id = tipo_documento_id), 
+                documento = documento,
+                sexo = sexo,
+                sucursal = Sucursal.objects.get(id = sucursal),
+                fecha_nacimiento = fecha_nacimiento,
+                fecha_ingreso = fecha_ingreso
+            )
+            user.save()
+            
+            
+        return redirect('/veterinaria')
+
+    return render(request, './LoginEmpleado.html')
+
+
+def sucursal(request):
+    sucursal = Sucursal.objects.all()
+    return render(request,"./sucursal.html", {'sucursal' : sucursal})
 
 def consulta_menu(request):
     return render(request,"./consulta_menu.html")
@@ -45,9 +98,6 @@ def razaperro(request):
 
     razas = Raza.objects.all()
     return render(request, 'Razas.html', {'razas': razas})
-
-def sucursal(request):
-    direccion = request.POST["Direccion"]
 
 
 def loginview(request: HttpRequest):

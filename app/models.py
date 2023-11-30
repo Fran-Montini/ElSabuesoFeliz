@@ -74,7 +74,7 @@ class Usuario(AbstractBaseUser, PermissionsMixin):
     apellido = models.CharField(('Apellido'),max_length=255)
     fechaNacimiento = models.DateField(('FechaNacimiento'),null=True)
     fechaIngreso = models.DateField(('FechaDeIngreso'),null=True)
-    sucursal = models.ForeignKey(('Sucursal'),Sucursal, null=True)
+    sucursal = models.ForeignKey(Sucursal,on_delete=models.CASCADE ,null=True)
     empleado = models.BooleanField(('Empleado'),default=True)
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
@@ -111,6 +111,7 @@ class Perro(models.Model):
     historialMascotas = models.ForeignKey('HistorialMascotas', on_delete=models.CASCADE ,null=True)
     consulta = models.TextField(null=True)  
     vacuna = models.CharField(("vacuna;"), max_length=100,null=True)
+    sucursal = models.ForeignKey("Sucursal", on_delete=models.CASCADE)
 
     def generarNumHistoriaClinica(self):
         # Implementar lógica para generar el número de historia clínica

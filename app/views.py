@@ -22,8 +22,9 @@ def login_empleado(request):
     
     if request.method == 'GET':
         tipo_documento = Tipodocumento.objects.all()
-        sucursal = Sucursal.objects.all()
-        return render(request, './LoginEmpleado.html', {"tipo_documentos" : tipo_documento, 'sucursales' : sucursal})
+        sucursales = Sucursal.objects.all()
+        print(sucursales)
+        return render(request, './LoginEmpleado.html', {"tipo_documentos" : tipo_documento, 'sucursales' : sucursales})
     
     if request.method == 'POST':
         username = request.POST['username-empleado']
@@ -39,9 +40,9 @@ def login_empleado(request):
   
 
     if 'Sucursal' in request.POST:
-        Sucursal = request.POST['Sucursal']
+        sucursal = request.POST['Sucursal']
     else:
-        Sucursal = None
+        sucursal = None
 
     if 'tipo_documento' in request.POST:
         tipo_documento = request.POST['tipo_documento']
@@ -56,7 +57,6 @@ def login_empleado(request):
     elif Usuario.objects.filter(email=correo).exists():
         error_message = "El correo electrónico ya está en uso."
             
-    print('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',tipo_documento)
     hashed_password = make_password(pass_empleado)
     user = Usuario.objects.create_user(
         username=username,
@@ -68,7 +68,7 @@ def login_empleado(request):
         tipodocumento = Tipodocumento.objects.get(id = tipo_documento), 
         numero_documento=nro_documento,                    
         sexo = sexo,
-        sucursal = Sucursal.objects.get(id=Sucursal),
+        sucursal = Sucursal.objects.get(direccion=sucursal),
         fecha_nacimiento = fecha_nacimiento,
         fecha_ingreso = fecha_ingreso
     )

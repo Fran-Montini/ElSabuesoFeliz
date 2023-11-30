@@ -28,12 +28,10 @@
 
             <div class="form-group">
                 <label for="ciudad">Ciudad de Origen</label>
-                <select class="form-control" id="ciudad" name="ciudad" placeholder="Seleccióne su Ciudad" Required>
-                    <option value="" autofocus hidden>-</option>
-                    {% for ciudades in ciudad %}
-                        <option value="{{ ciudad.nombre }}">{{ ciudad.getFullName}}</option>
-                    {% endfor %}
-                </select>
+                <div class="form-group">
+                    <label for="nombre">Nombre del Perro:</label>
+                    <input type="text" class="form-control" name="Nombre" id="nombre" required>
+                </div>
             </div>
             
             <button type="submit" class="boton-bonito">CREATE</button><br><br><br>

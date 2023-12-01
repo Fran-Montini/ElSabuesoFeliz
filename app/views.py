@@ -138,9 +138,15 @@ def login_empleado(request):
 def sucursales(request):
     logged_user = getLoggedUser(request)
     if request.method == 'GET':
-        sucursales = Sucursal.objects.all()
-        #ciudades = Ciudad.objects.all(),'ciudades' : ciudades}
-        return render(request, 'sucursal.html', {'sucursales': sucursales,"logged_user" : logged_user})
+        # sucursales = Sucursal.objects.all() 'sucursales': sucursales,
+        return render(request, 'sucursal.html', {"logged_user" : logged_user})
+
+    elif request.method == 'POST':
+        sucursal = request.POST["direccion"]
+        # sucursales = Sucursal.objects.get(direccion = sucursales)
+        s = Sucursal.objects.create(direccion = sucursal)
+        s.save()
+        return redirect('/veterinaria')
 
 def consulta_menu(request):
     logged_user = getLoggedUser(request)

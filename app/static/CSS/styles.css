@@ -5,7 +5,9 @@
     margin: 0;
     padding: 0;
     font-family: 'Nunito', sans-serif;
-    font-size: 20px;
+}
+.bg-celeste {
+    background-color: #1b3039; 
 }
 
 body{

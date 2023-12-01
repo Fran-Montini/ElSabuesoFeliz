@@ -17,3 +17,9 @@
 .card-text {
     font-size: 1.2em;
 }
+body {
+    font-family: Arial, sans-serif;
+    background-color: #001f3f; /* Azul marino */
+    color: #fff; /* Texto blanco para mejor contraste */
+  }
+

@@ -69,7 +69,7 @@ class Persona(models.Model):
 
 class Usuario(AbstractBaseUser, PermissionsMixin):
     username = models.CharField(max_length=30, unique=True)
-    email = models.EmailField(('Email'), max_length=254, unique=True)
+    email = models.EmailField(('Email'), max_length=254)
     nombre = models.CharField(('Nombre'),max_length=255)
     apellido = models.CharField(('Apellido'),max_length=255)
     fechaNacimiento = models.DateField(('FechaNacimiento'),null=True)

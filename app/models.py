@@ -162,7 +162,7 @@ class Consulta(models.Model):
     diagnosticos = models.CharField(max_length=255)
     medicamento = models.CharField(max_length=255)
     fechaSalida = models.DateField()
-    persona = models.ForeignKey(Persona, on_delete=models.CASCADE)
+    persona = models.ForeignKey(Persona, on_delete=models.CASCADE, null=True)
     perro = models.ForeignKey(Perro, on_delete=models.CASCADE, related_name='consultas')
 
     def verificarPersona(self):

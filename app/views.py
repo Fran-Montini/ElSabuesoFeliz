@@ -10,6 +10,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.hashers import make_password
 from django.shortcuts import render
 from django.http import HttpResponse
+from .forms import ConsultaForm
 
 
 def home(request):
@@ -148,10 +149,6 @@ def sucursales(request):
         s.save()
         return render(request, 'sucursal.html', {'message': 'Sucursal creada exitosamente', "logged_user" : logged_user})
 
-def consulta_menu(request):
-    logged_user = getLoggedUser(request)
-    return render(request,"./consulta_menu.html",{"logged_user" : logged_user})
-
 
 def login_perro(request):
     logged_user = getLoggedUser(request)
@@ -212,20 +209,32 @@ def loginview(request: HttpRequest):
 def getLoggedUser(request: HttpRequest):
     return request.session.get("user")
 
+def consulta_view(request):
+    consultas = Consulta.objects.all()
 
-def agregar_consulta(request):
-    logged_user = getLoggedUser(request)
-    if request.method == 'GET':
-        perros = Perro.objects.all()
-        return render(request, './agregar_consulta.html', {"logged_user" : logged_user, 'perros' : perros})
+    if request.method == 'POST':
+        form = ConsultaForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('/consulta/')
+    else:
+        form = ConsultaForm()
+
+    return render(request, 'agregar_consulta.html', {'form': form, 'consultas': consultas})
+
+# def agregar_consulta(request):
+#     logged_user = getLoggedUser(request)
+#     if request.method == 'GET':
+#         perros = Perro.objects.all()
+#         return render(request, './agregar_consulta.html', {"logged_user" : logged_user, 'perros' : perros})
     
-    elif request.method == 'POST':
-        fecha_entrada = request.POST['fecha_entrada']
-        fecha_salida = request.POST['fecha_salida']
-        sintomas = request.POST['sintomas']
-        diagnosticos = request.POST['diagnosticos']
-        medicamento = request.POST['medicamento']
-        perro = Raza.objects.get(nombre = perro)
-        c = Consulta.objects.create(fecha_entrada=fecha_entrada,fecha_salida=fecha_salida,sintomas=sintomas,diagnosticos=diagnosticos,medicamento=medicamento)  
-        return redirect("/veterinaria") 
+#     elif request.method == 'POST':
+#         fecha_entrada = request.POST['fecha_entrada']
+#         fecha_salida = request.POST['fecha_salida']
+#         sintomas = request.POST['sintomas']
+#         diagnosticos = request.POST['diagnosticos']
+#         medicamento = request.POST['medicamento']
+#         perro = Raza.objects.get(nombre = perro)
+#         c = Consulta.objects.create(fecha_entrada=fecha_entrada,fecha_salida=fecha_salida,sintomas=sintomas,diagnosticos=diagnosticos,medicamento=medicamento)  
+#         return redirect("/veterinaria") 
 

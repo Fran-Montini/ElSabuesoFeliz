@@ -10,3 +10,50 @@
 {% endblock%}
 
 
+{% block content %}
+
+<div class="container mt-4">
+    <div class="text-dark">
+        <h2>Realizar Consulta</h2>
+    </div>
+
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button class="btn btn-outline-primary" type="submit">Enviar Consulta</button>
+    </form>
+</div>
+
+<div class="container-fluid text-dark mt-4">
+    <div class="card">
+    <h2 class="card-title">Consultas Anteriores</h2>
+    <table class="table table-hover text-center">
+        <thead>
+            <tr>
+                <th scope="col"> Número de Orden</th>
+                <th scope="col"> Fecha de Entrada</th>
+                <th scope="col"> Síntomas</th>
+                <th scope="col"> Diagnósticos</th>
+                <th scope="col"> Medicamento</th>
+                <th scope="col"> Fecha de Salida</th>
+                <th scope="col"> Perro</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for consulta in consultas %}
+                <tr>
+                    <td>{{ consulta.numeroOrden }}</td>
+                    <td>{{ consulta.fechaEntrada }}</td>
+                    <td>{{ consulta.sIntomas }}</td>
+                    <td>{{ consulta.diagnosticos }}</td>
+                    <td>{{ consulta.medicamento }}</td>
+                    <td>{{ consulta.fechaSalida }}</td>
+                    <td>{{ consulta.perro.nombre }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    </div>
+</div>
+<br><br><br>
+{% endblock %}

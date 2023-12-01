@@ -32,19 +32,20 @@
                     <a href="{%url 'Veterinarialist'%}">Inicio</a>
                 </li>
                 <li class="nav-item">
-                    <a href="{%url 'sucursales'%}">Sucursales</a>
-                </li>
-                <li class="nav-item">
                     <a href="{%url 'Raza'%}">Razas</a>
                 </li>
                 <li class="nav-item">
                     <a href="{% url 'registrarperrro' %}">Registrar Perro</a>
                 </li>
-
+                
                 <li class="nav-item">
                     <a href="{% url 'consultas' %}">Consulta</a>
                 </li>
-
+                {% if user and user.is_staff %}
+                <li class="nav-item">
+                    <a href="{%url 'sucursales'%}">Sucursales</a>
+                </li>
+                {% endif %}
                 {% if user and user.is_staff %}
                     <li class="nav-item">
                         <a href="{% url 'loginEmpleado' %}">Registrar Empleado</a>

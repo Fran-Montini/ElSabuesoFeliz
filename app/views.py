@@ -213,7 +213,9 @@ def getLoggedUser(request: HttpRequest):
     return request.session.get("user")
 
 def consulta_view(request):
+    logged_user = getLoggedUser(request)
     consultas = Consulta.objects.all()
+    
 
     if request.method == 'POST':
         form = ConsultaForm(request.POST)
@@ -223,7 +225,7 @@ def consulta_view(request):
     else:
         form = ConsultaForm()
 
-    return render(request, 'agregar_consulta.html', {'form': form, 'consultas': consultas})
+    return render(request, 'agregar_consulta.html', {'form': form, 'consultas': consultas,"logged_user" : logged_user})
 
 # def agregar_consulta(request):
 #     logged_user = getLoggedUser(request)

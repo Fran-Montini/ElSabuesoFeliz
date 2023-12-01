@@ -78,11 +78,41 @@
                 <label for="nombredueño">Nombre del Dueño:</label>
                 <input type="text" class="form-control" name="NombreDueño" id="NombreDueño" required>
             </div>
+
             
             <button type="submit" class="boton-bonito">CREATE</button><br><br><br>
+            
         </form>
+        
+        </div>
+        <div class="container-fluid text-dark mt-4">
+            <div class="card">
+            <h2 class="card-title">Perros</h2>
+            <table class="table table-hover text-center">
+                <thead>
+                    <tr>
+                        <th scope="col">Nompre</th>
+                        <th scope="col"> Raza</th>
+                        <th scope="col"> Sucursal</th>
+                        <th scope="col"> Fecha de Nacimiento</th>
+                        
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for perro in perros%}
+                        <tr>
+                            <td>{{ perro.nombre }}</td>
+                            <td>{{ perro.raza}}</td>
+                            <td>{{ perro.sucursal  }}</td>
+                            <td>{{ perro.fechaNacimiento}}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            </div>
     </div>
     {% endblock%}
+    
     
 </body>
 </html>

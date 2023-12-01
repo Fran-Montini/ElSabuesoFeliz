@@ -156,7 +156,7 @@ class Raza(models.Model):
         return self.denominacion
 
 class Consulta(models.Model):
-    numeroOrden = models.IntegerField()
+    numeroOrden = models.IntegerField(primary_key=True, auto_created=True)
     fechaEntrada = models.DateField()
     sIntomas = models.CharField(max_length=255)
     diagnosticos = models.CharField(max_length=255)

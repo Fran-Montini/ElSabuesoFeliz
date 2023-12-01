@@ -205,3 +205,21 @@ def loginview(request: HttpRequest):
     
 def getLoggedUser(request: HttpRequest):
     return request.session.get("user")
+
+
+def agregar_consulta(request):
+    logged_user = getLoggedUser(request)
+    if request.method == 'GET':
+        perros = Perro.objects.all()
+        return render(request, './agregar_consulta.html', {"logged_user" : logged_user, 'perros' : perros})
+    
+    elif request.method == 'POST':
+        fecha_entrada = request.POST['fecha_entrada']
+        fecha_salida = request.POST['fecha_salida']
+        sintomas = request.POST['sintomas']
+        diagnosticos = request.POST['diagnosticos']
+        medicamento = request.POST['medicamento']
+        perro = Raza.objects.get(nombre = perro)
+        c = Consulta.objects.create(fecha_entrada=fecha_entrada,fecha_salida=fecha_salida,sintomas=sintomas,diagnosticos=diagnosticos,medicamento=medicamento)  
+        return redirect("/veterinaria") 
+

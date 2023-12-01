@@ -136,20 +136,23 @@ def login_empleado(request):
 
 #     return render(request, './LoginEmpleado.html')
 def sucursales(request):
+    logged_user = getLoggedUser(request)
     if request.method == 'GET':
         sucursales = Sucursal.objects.all()
         #ciudades = Ciudad.objects.all(),'ciudades' : ciudades}
-        return render(request, 'sucursal.html', {'sucursales': sucursales})
+        return render(request, 'sucursal.html', {'sucursales': sucursales,"logged_user" : logged_user})
 
 def consulta_menu(request):
-    return render(request,"./consulta_menu.html")
+    logged_user = getLoggedUser(request)
+    return render(request,"./consulta_menu.html",{"logged_user" : logged_user})
 
 
 def login_perro(request):
+    logged_user = getLoggedUser(request)
     if request.method == 'GET':
         razas = Raza.objects.all()
         sucursal = Sucursal.objects.all()
-        return render(request, './LoginPerros.html', {"razas" : razas, 'sucursales' : sucursal})
+        return render(request, './LoginPerros.html', {"razas" : razas, 'sucursales' : sucursal,"logged_user" : logged_user})
     
     elif request.method == 'POST':
         perro = request.POST["Nombre"]
@@ -165,9 +168,9 @@ def login_perro(request):
         p = Perro.objects.create(nombre=perro,sucursal=sucursalful,raza=razaful,pesoActual=peso,sexo=sexo,fechaNacimiento=fechaNacimiento,alturaActual=altura,consulta=consulta)    
         return redirect("/veterinaria")
 def razaperro(request):
-
+    logged_user = getLoggedUser(request)
     razas = Raza.objects.all()
-    return render(request, 'Razas.html', {'razas': razas})
+    return render(request, 'Razas.html', {'razas': razas,"logged_user" : logged_user})
 
 def detalles_raza(request, raza_id):
     

@@ -146,7 +146,7 @@ def sucursales(request):
         # sucursales = Sucursal.objects.get(direccion = sucursales)
         s = Sucursal.objects.create(direccion = sucursal)
         s.save()
-        return redirect('/veterinaria')
+        return render(request, 'sucursal.html', {'message': 'Sucursal creada exitosamente', "logged_user" : logged_user})
 
 def consulta_menu(request):
     logged_user = getLoggedUser(request)

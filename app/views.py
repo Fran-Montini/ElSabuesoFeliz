@@ -144,10 +144,13 @@ def sucursales(request):
 
     elif request.method == 'POST':
         sucursal = request.POST["direccion"]
-        # sucursales = Sucursal.objects.get(direccion = sucursales)
-        s = Sucursal.objects.create(direccion = sucursal)
-        s.save()
-        return render(request, 'sucursal.html', {'message': 'Sucursal creada exitosamente', "logged_user" : logged_user})
+        sucursales = Sucursal.objects.filter(direccion = sucursal).exists()
+        if sucursales:
+            return render(request, 'sucursal.html', {'message': 'Sucursal ya existe', "logged_user" : logged_user})
+        else:
+            s = Sucursal.objects.create(direccion = sucursal)
+            s.save()
+            return render(request, 'sucursal.html', {'message': 'Sucursal creada exitosamente', "logged_user" : logged_user})
 
 
 def login_perro(request):

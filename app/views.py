@@ -79,7 +79,7 @@ def login_empleado(request):
                  
                 
             
-    return redirect('/veterinaria')
+    return render(request, './LoginEmpleado.html', {'message': 'Empleado creado exitosamente','logged_user' : logged_user})
 
 #     return render(request, './LoginEmpleado.html')
 # def login_empleado(request):

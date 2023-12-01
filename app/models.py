@@ -31,18 +31,10 @@ class Pais(models.Model):
     def __str__(self) -> str:
         return self.nombre
 
-# class Ciudad(models.Model):
-#     nombre = models.CharField(max_length=255)
-#     pais = models.ForeignKey(Pais, on_delete=models.CASCADE)
-#     def __str__(self) -> str:
-#         return self.nombre
-    
-#     def getFullName(self):
-#         return f'{self.pais} - {self.nombre}'
         
 class Sucursal(models.Model):
     direccion = models.CharField(max_length=255)
-    # ciudad = models.ForeignKey(Ciudad, on_delete=models.CASCADE, default=1)
+    
 
     def agregarEmpleado(self, empleado):
         self.empleados.append(empleado)
@@ -100,7 +92,6 @@ class AsignacionEmpleados(models.Model):
 
 
     def verificarEstadoEmpleado(self):
-        # Implementar lógica para verificar el estado del empleado
         pass
  
 class Perro(models.Model):
@@ -117,15 +108,12 @@ class Perro(models.Model):
     sucursal = models.ForeignKey("Sucursal", on_delete=models.CASCADE)
 
     def generarNumHistoriaClinica(self):
-        # Implementar lógica para generar el número de historia clínica
         pass
 
     def verificarPersona(self):
-        # Implementar lógica para verificar la persona asociada al perro
         pass
 
     def identificarVacunacion(self):
-        # Implementar lógica para identificar la vacunación del perro
         pass
     def __str__(self) -> str:
         return self.nombre
@@ -134,11 +122,9 @@ class HistorialMascotas(models.Model):
     rolPersona = models.CharField(max_length=255)
 
     def verificarEstadoPerro(self):
-        # Implementar lógica para verificar el estado del perro
         pass
 
     def verificarRolPersona(self):
-        # Implementar lógica para verificar el rol de la persona
         pass
 
 
@@ -166,23 +152,18 @@ class Consulta(models.Model):
     perro = models.ForeignKey(Perro, on_delete=models.CASCADE, related_name='consultas')
 
     def verificarPersona(self):
-        # Implementar lógica para verificar la persona asociada a la consulta
         pass
 
     def verificarRolEmpleadoConsulta(self):
-        # Implementar lógica para verificar el rol del empleado en la consulta
         pass
 
     def identificarNumHistoriaClinica(self):
-        # Implementar lógica para identificar el número de historia clínica asociado
         pass
 
     def recetarMedicamentos(self):
-        # Implementar lógica para recetar medicamentos
         pass
 
     def verificarPerro(self):
-        # Implementar lógica para verificar el perro asociado a la consulta
         pass
 
 class Vacunacion(models.Model):

@@ -16,6 +16,4 @@ admin.site.register(Persona)
 admin.site.register(HistorialMascotas)
 admin.site.register(AsignacionEmpleados)
 admin.site.register(Tipodocumento)
-# admin.site.register(Ciudad)
-# admin.site.register(Pais)
     

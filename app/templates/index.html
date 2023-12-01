@@ -30,9 +30,11 @@
             <li class="nav-item">
               <a class="nav-link active" href="{% url 'Veterinarialist' %}">Home</a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link active" href="{% url 'sucursales' %}">Sucursales</a>
-            </li>
+            {% if user and user.is_staff %}
+                <li class="nav-item">
+                <a class="nav-link active" href="{% url 'sucursales' %}">Sucursales</a>
+                </li>
+            {% endif %}
             <li class="nav-item">
                 <a class="nav-link active" href="{% url 'Raza' %}">Raza</a>
               </li>
@@ -42,13 +44,16 @@
             <li class="nav-item">
               <a class="nav-link active" href="{% url 'registrarperrro' %}">Registrar Perro</a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link active" href="{% url 'loginEmpleado' %}">Registrar Empleado</a>
-            </li>
-            <li class="nav-item">
-                <a class="text-danger" href="{% url 'loginview' %}">Cerrar sesion</a>
-            </li>
-
+            {% if user and user.is_staff %}
+                <li class="nav-item">
+                <a class="nav-link active" href="{% url 'loginEmpleado' %}">Registrar Empleado</a>
+                </li>
+            {% endif %}
+            {% if request.user.is_authenticated %}
+                <li class="nav-item">
+                    <a class="text-danger" href="{% url 'loginview' %}">Cerrar sesion</a>
+                </li>   
+            {% endif %}
         </div>
       </div>
     </div>
